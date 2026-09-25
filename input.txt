@@ -1,0 +1,7 @@
+Number of sorted lists (k): 3
+
+L1 = 10, 30, 50, 70
+L2 = 20, 40, 60, 80
+L3 = 15, 35, 55, 75
+
+Each list has n = 4 elements, so total N = k * n = 12 elements.

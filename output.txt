@@ -1,0 +1,85 @@
+================= K-WAY MERGE USING MIN-HEAP =================
+
+Input lists:
+ L1 = [ 10 30 50 70 ]
+ L2 = [ 20 40 60 80 ]
+ L3 = [ 15 35 55 75 ]
+
+--- STEP 1: Build initial heap with first element of each list ---
+Insert 10 from L1 ->         [ 10(L1) ]  (heap size = 1)
+Insert 20 from L2 ->         [ 10(L1), 20(L2) ]  (heap size = 2)
+Insert 15 from L3 ->         [ 10(L1), 20(L2), 15(L3) ]  (heap size = 3)
+
+--- STEP 2: Repeatedly extract-min, output it, push next from same list ---
+[ 1] Extract 10 (from L1) -> [ 15(L3), 20(L2) ]  (heap size = 2)
+      Insert 30 from L1  ->  [ 15(L3), 20(L2), 30(L1) ]  (heap size = 3)
+[ 2] Extract 15 (from L3) -> [ 20(L2), 30(L1) ]  (heap size = 2)
+      Insert 35 from L3  ->  [ 20(L2), 30(L1), 35(L3) ]  (heap size = 3)
+[ 3] Extract 20 (from L2) -> [ 30(L1), 35(L3) ]  (heap size = 2)
+      Insert 40 from L2  ->  [ 30(L1), 35(L3), 40(L2) ]  (heap size = 3)
+[ 4] Extract 30 (from L1) -> [ 35(L3), 40(L2) ]  (heap size = 2)
+      Insert 50 from L1  ->  [ 35(L3), 40(L2), 50(L1) ]  (heap size = 3)
+[ 5] Extract 35 (from L3) -> [ 40(L2), 50(L1) ]  (heap size = 2)
+      Insert 55 from L3  ->  [ 40(L2), 50(L1), 55(L3) ]  (heap size = 3)
+[ 6] Extract 40 (from L2) -> [ 50(L1), 55(L3) ]  (heap size = 2)
+      Insert 60 from L2  ->  [ 50(L1), 55(L3), 60(L2) ]  (heap size = 3)
+[ 7] Extract 50 (from L1) -> [ 55(L3), 60(L2) ]  (heap size = 2)
+      Insert 70 from L1  ->  [ 55(L3), 60(L2), 70(L1) ]  (heap size = 3)
+[ 8] Extract 55 (from L3) -> [ 60(L2), 70(L1) ]  (heap size = 2)
+      Insert 75 from L3  ->  [ 60(L2), 70(L1), 75(L3) ]  (heap size = 3)
+[ 9] Extract 60 (from L2) -> [ 70(L1), 75(L3) ]  (heap size = 2)
+      Insert 80 from L2  ->  [ 70(L1), 75(L3), 80(L2) ]  (heap size = 3)
+[10] Extract 70 (from L1) -> [ 75(L3), 80(L2) ]  (heap size = 2)
+[11] Extract 75 (from L3) -> [ 80(L2) ]  (heap size = 1)
+[12] Extract 80 (from L2) -> [  ]  (heap size = 0)
+
+--- RESULT ---
+Merged sorted output: [ 10 15 20 30 35 40 50 55 60 70 75 80 ]
+
+--- OPERATION COUNTS (Min-Heap approach) ---
+Total elements merged      : 12
+Total heap operations      : 24  (inserts + extract-mins)
+Total key comparisons      : 21  (during sift-up / sift-down)
+Max heap size reached      : 3
+================ PAIRWISE MERGING (SIMPLE) ================
+
+Input lists:
+ L1 = [ 10 30 50 70 ]
+ L2 = [ 20 40 60 80 ]
+ L3 = [ 15 35 55 75 ]
+
+--- PASS 1: merge L1 and L2 ---
+Merging L1 and L2:
+  compare L1[0]=10 vs L2[0]=20 -> take 10 from L1
+  compare L1[1]=30 vs L2[0]=20 -> take 20 from L2
+  compare L1[1]=30 vs L2[1]=40 -> take 30 from L1
+  compare L1[2]=50 vs L2[1]=40 -> take 40 from L2
+  compare L1[2]=50 vs L2[2]=60 -> take 50 from L1
+  compare L1[3]=70 vs L2[2]=60 -> take 60 from L2
+  compare L1[3]=70 vs L2[3]=80 -> take 70 from L1
+  remaining: take 80 from L2
+  Result so far: [ 10 20 30 40 50 60 70 80 ]
+
+--- PASS 2: merge M1 (=L1+L2) and L3 ---
+Merging M1 and L3:
+  compare M1[0]=10 vs L3[0]=15 -> take 10 from M1
+  compare M1[1]=20 vs L3[0]=15 -> take 15 from L3
+  compare M1[1]=20 vs L3[1]=35 -> take 20 from M1
+  compare M1[2]=30 vs L3[1]=35 -> take 30 from M1
+  compare M1[3]=40 vs L3[1]=35 -> take 35 from L3
+  compare M1[3]=40 vs L3[2]=55 -> take 40 from M1
+  compare M1[4]=50 vs L3[2]=55 -> take 50 from M1
+  compare M1[5]=60 vs L3[2]=55 -> take 55 from L3
+  compare M1[5]=60 vs L3[3]=75 -> take 60 from M1
+  compare M1[6]=70 vs L3[3]=75 -> take 70 from M1
+  compare M1[7]=80 vs L3[3]=75 -> take 75 from L3
+  remaining: take 80 from M1
+  Result so far: [ 10 15 20 30 35 40 50 55 60 70 75 80 ]
+
+--- RESULT ---
+Merged sorted output: [ 10 15 20 30 35 40 50 55 60 70 75 80 ]
+
+--- OPERATION COUNTS (Pairwise approach) ---
+Total elements merged      : 12
+Number of merge passes     : 2   (k-1 passes for k lists)
+Total key comparisons      : 18
