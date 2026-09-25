@@ -29,16 +29,6 @@ This repository:
 | `comparison_table.md`      | Side-by-side comparison (heap size, comparisons, complexity)|
 | `conclusion.md`            | Justification of which approach is more suitable, and why   |
 
-## How to build and run
-
-```bash
-gcc -O0 -Wall -o heap_merge heap_merge.c
-./heap_merge
-
-gcc -O0 -Wall -o pairwise_merge pairwise_merge.c
-./pairwise_merge
-```
-
 ## Result
 
 Both programs produce the same correct merged output:
